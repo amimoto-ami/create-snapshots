@@ -49,9 +49,9 @@ delete_old_snapshot() {
     print_msg "Delete old snapshot End"
 }
 
-print_msg "INF:$SHELLDIR/${SHELLNAME} START"
+print_msg "START"
 create_snapshot
 delete_old_snapshot
-print_msg "INF:$SHELLDIR/${SHELLNAME} END"
+print_msg "END"
 
 exit 0
