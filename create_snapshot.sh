@@ -12,6 +12,7 @@ SNAPSHOTS_PERIOD=1
 AWS="/usr/bin/aws --region ${REGION}"
 
 INSTANCE_ID=`curl -s http://169.254.169.254/latest/meta-data/instance-id`
+INSTANCE_NAME=`aws ec2 describe-instances --instance-ids ${INSTANCE_ID} --output json | jq -r '.Reservations[].Instances[].Tags[] | select(.Key == "Name").Value'`
 
 print_msg() {
     echo "`date '+%Y/%m/%d %H:%M:%S'` $1"
@@ -26,7 +27,7 @@ create_snapshot() {
         exit 1
     fi
     print_msg "ec2-describe-instances Success : ${VOL_ID}"
-    ${AWS} ec2 create-snapshot --volume-id ${VOL_ID} --description "Created by SYSTEMBK(${INSTANCE_ID}) from ${VOL_ID}"
+    ${AWS} ec2 create-snapshot --volume-id ${VOL_ID} --description "Created by SYSTEMBK(${INSTANCE_ID}) from ${VOL_ID} --tag Name='$(INSTANCE_NAME)'"
     if [ $? != 0 ] ; then
         print_msg "ERR:${SHELLDIR}/${SHELLNAME} ec2-create-snapshot"
         exit 1
