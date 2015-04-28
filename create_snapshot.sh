@@ -7,7 +7,7 @@ SHELLDIR=`cd ${SHELLDIR}; pwd`
 SHELLNAME=`basename $0`
 
 REGION=ap-northeast-1
-SNAPSHOTS_PERIOD=2
+SNAPSHOTS_PERIOD=1
 
 AWS="/usr/bin/aws --region ${REGION}"
 
