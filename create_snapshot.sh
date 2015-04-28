@@ -6,7 +6,7 @@ SHELLDIR=`dirname ${0}`
 SHELLDIR=`cd ${SHELLDIR}; pwd`
 SHELLNAME=`basename $0`
 
-LOG_DIR="~/logs"
+LOG_DIR="/home/ec2-user/logs"
 LOG_SAVE_PERIOD=14
 LOG_FILE="${LOG_DIR}/${SHELLNAME}.log"
 
