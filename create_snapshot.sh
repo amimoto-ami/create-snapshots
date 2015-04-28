@@ -6,10 +6,6 @@ SHELLDIR=`dirname ${0}`
 SHELLDIR=`cd ${SHELLDIR}; pwd`
 SHELLNAME=`basename $0`
 
-LOG_DIR="/home/ec2-user/logs"
-LOG_SAVE_PERIOD=14
-LOG_FILE="${LOG_DIR}/${SHELLNAME}.log"
-
 REGION=ap-northeast-1
 SNAPSHOTS_PERIOD=2
 
@@ -30,7 +26,7 @@ create_snapshot() {
         exit 1
     fi
     print_msg "ec2-describe-instances Success : ${VOL_ID}"
-    ${AWS} ec2 create-snapshot --volume-id ${VOL_ID} --description "Created by SYSTEMBK(${INSTANCE_ID}) from ${VOL_ID}" >> ${LOG_FILE} 2>&1
+    ${AWS} ec2 create-snapshot --volume-id ${VOL_ID} --description "Created by SYSTEMBK(${INSTANCE_ID}) from ${VOL_ID}"
     if [ $? != 0 ] ; then
         print_msg "ERR:${SHELLDIR}/${SHELLNAME} ec2-create-snapshot"
         exit 1
@@ -43,7 +39,7 @@ delete_old_snapshot() {
     SNAPSHOTS=`${AWS} ec2 describe-snapshots --output text | grep ${VOL_ID} | grep "Created by SYSTEMBK" | wc -l`
     while [ ${SNAPSHOTS} -gt ${SNAPSHOTS_PERIOD} ]
     do
-        ${AWS} ec2 delete-snapshot --snapshot-id `${AWS} ec2 describe-snapshots --output text | grep ${VOL_ID} | grep "Created by SYSTEMBK" | sort -k 11,11 | awk 'NR==1 {print $10}'` >> ${LOG_FILE} 2>&1
+        ${AWS} ec2 delete-snapshot --snapshot-id `${AWS} ec2 describe-snapshots --output text | grep ${VOL_ID} | grep "Created by SYSTEMBK" | sort -k 11,11 | awk 'NR==1 {print $10}'`
         if [ $? != 0 ] ; then
             print_msg "ERR:${SHELLDIR}/${SHELLNAME} ec2-delete-snapshot"
             exit 1
