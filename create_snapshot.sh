@@ -14,7 +14,7 @@ AWS="/usr/bin/aws --region ${REGION}"
 INSTANCE_ID=`curl -s http://169.254.169.254/latest/meta-data/instance-id`
 
 print_msg() {
-    echo "`date '+%Y/%m/%d %H:%M:%S'` $1" | tee -a ${LOG_FILE}
+    echo "`date '+%Y/%m/%d %H:%M:%S'` $1"
 }
 
 create_snapshot() {
