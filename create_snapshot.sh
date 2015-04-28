@@ -32,7 +32,7 @@ create_snapshot() {
         print_msg "ERR: ec2-create-snapshot"
         exit 1
     fi
-    ${AWS} ec2 create-tags --resources $(SNAPSHOT_ID) --tags "Key=Name,Value=${INSTANCE_NAME}"
+    ${AWS} ec2 create-tags --resources ${SNAPSHOT_ID} --tags "Key=Name,Value=${INSTANCE_NAME}"
     if [ $? != 0 ] ; then
         print_msg "ERR: ec2-create-tags"
         exit 1
