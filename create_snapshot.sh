@@ -27,7 +27,7 @@ create_snapshot() {
         exit 1
     fi
     print_msg "ec2-describe-instances Success : ${VOL_ID}"
-    ${AWS} ec2 create-snapshot --volume-id ${VOL_ID} --description "Created by SYSTEMBK(${INSTANCE_ID}) from ${VOL_ID} --tag Name=$(INSTANCE_NAME)"
+    ${AWS} ec2 create-snapshot --volume-id ${VOL_ID} --description "Created by SYSTEMBK(${INSTANCE_ID}) from ${VOL_ID}" --tag "Name=$(INSTANCE_NAME)"
     if [ $? != 0 ] ; then
         print_msg "ERR:${SHELLDIR}/${SHELLNAME} ec2-create-snapshot"
         exit 1
