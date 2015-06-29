@@ -6,7 +6,9 @@ SHELLDIR=`dirname ${0}`
 SHELLDIR=`cd ${SHELLDIR}; pwd`
 SHELLNAME=`basename $0`
 
-REGION=ap-northeast-1
+AZ=`curl -s http://169.254.169.254/latest/meta-data/placement/availability-zone`
+LN=`echo $((${#AZ} - 1))`
+REGION=`echo ${AZ} | cut -c 1-${LN}`
 SNAPSHOTS_PERIOD=2
 
 AWS="/usr/bin/aws --region ${REGION}"
