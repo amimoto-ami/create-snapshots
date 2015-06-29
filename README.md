@@ -14,9 +14,9 @@ If you are hoping backup AMIMOTO environments, you should just run following.
 curl -L https://raw.githubusercontent.com/amimoto-ami/create_snapshots/master/create_snapshot.sh | bash
 ```
 
-## Creating Snaphosts
+## Creating Snaphosts with cron
 
-Puts following to cron.
+Puts following with `crontab -e`.
 
 ```
 00 04 * * * /usr/bin/curl -s https://raw.githubusercontent.com/miya0001/create-snapshot/master/create_snapshot.sh | /bin/bash
