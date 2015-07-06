@@ -57,6 +57,8 @@ delete_old_snapshot() {
     print_msg "Delete old snapshot End"
 }
 
+sudo yum install jq
+
 print_msg "START"
 create_snapshot
 delete_old_snapshot
