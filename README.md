@@ -6,8 +6,6 @@
 
 ## Creating Snaphosts for AMIMOTO
 
-### AWS
-
 ### SSH into your instance
 
 ```
