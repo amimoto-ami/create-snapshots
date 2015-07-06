@@ -25,7 +25,7 @@ AWS="/usr/bin/aws --region ${REGION}"
 INSTANCE_ID=`curl -s http://169.254.169.254/latest/meta-data/instance-id`
 INSTANCE_NAME=`${AWS} ec2 describe-instances --instance-ids ${INSTANCE_ID} --output json | jq -r '.Reservations[].Instances[].Tags[] | select(.Key == "Name").Value'`
 
-if [ !INSTANCE_NAME ] ; then
+if [ -z $INSTANCE_NAME ] ; then
     error 'Unable to locate credentials. You can configure credentials by running "aws configure".'
     exit 1
 fi
