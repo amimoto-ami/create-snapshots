@@ -2,6 +2,15 @@
 
 set -ex
 
+error() {
+    echo -e "\e[31m${@}\e[m"
+}
+
+success() {
+    echo -e "\e[32m${@}\e[m"
+}
+
+
 SHELLDIR=`dirname ${0}`
 SHELLDIR=`cd ${SHELLDIR}; pwd`
 SHELLNAME=`basename $0`
@@ -20,14 +29,6 @@ if [ !INSTANCE_NAME ] ; then
     error 'Unable to locate credentials. You can configure credentials by running "aws configure".'
     exit 1
 fi
-
-error() {
-    echo -e "\e[31m${@}\e[m"
-}
-
-success() {
-    echo -e "\e[32m${@}\e[m"
-}
 
 create_snapshot() {
     VOL_ID=`${AWS} ec2 describe-instances --instance-ids ${INSTANCE_ID} --output text | grep EBS | awk '{print $5}'`
