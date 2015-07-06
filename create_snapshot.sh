@@ -30,13 +30,11 @@ success() {
 }
 
 create_snapshot() {
-    print_msg "Create snapshot Start"
     VOL_ID=`${AWS} ec2 describe-instances --instance-ids ${INSTANCE_ID} --output text | grep EBS | awk '{print $5}'`
     if [ -z ${VOL_ID} ] ; then
         error "ERR: ec2-describe-instances"
         exit 1
     fi
-    print_msg "ec2-describe-instances Success : ${VOL_ID}"
     SNAPSHOT_ID=`${AWS} ec2 create-snapshot --volume-id ${VOL_ID} --description "Created by SYSTEMBK(${INSTANCE_ID}) from ${VOL_ID}" --output json | jq -r .SnapshotId`
     if [ $? != 0 ] ; then
         error "ERR: ec2-create-snapshot"
@@ -50,7 +48,6 @@ create_snapshot() {
 }
 
 delete_old_snapshot() {
-    print_msg "Delete old snapshot Start"
     SNAPSHOTS=`${AWS} ec2 describe-snapshots --output text | grep ${VOL_ID} | grep "Created by SYSTEMBK" | wc -l`
     while [ ${SNAPSHOTS} -gt ${SNAPSHOTS_PERIOD} ]
     do
@@ -65,9 +62,8 @@ delete_old_snapshot() {
 
 sudo yum install jq
 
-print_msg "START"
 create_snapshot
 delete_old_snapshot
-print_msg "END"
+success "Snapshot was created successfully!"
 
 exit 0
