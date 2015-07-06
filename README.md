@@ -14,7 +14,36 @@
 ssh ec2-user@<ip-address>
 ```
 
+### Creating a IAM user
+
+Create Accesss Key ID and Secret Accesss Key.
+
+See [http://aws.amazon.com/iam/](http://aws.amazon.com/iam/).
+
+Example policy:
+
+```
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": [
+                "ec2:Describe*",
+                "ec2:CreateSnapshot",
+                "ec2:DeleteSnapshot",
+                "ec2:CreateTags",
+                "ec2:DeleteTags"
+            ],
+            "Resource": "*"
+        }
+    ]
+}
+```
+
 ### Configuring the AWS Command Line Interface
+
+Set IAM Access Key ID and Secret Access Key
 
 ```
 aws configure
