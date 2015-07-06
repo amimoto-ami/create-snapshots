@@ -12,7 +12,7 @@
 ssh ec2-user@<ip-address>
 ```
 
-### Creating a IAM user
+### Creating an IAM user
 
 Create Accesss Key ID and Secret Accesss Key.
 
